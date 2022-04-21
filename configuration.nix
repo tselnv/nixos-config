@@ -9,6 +9,8 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./wifi-configuration.nix
+      ./installed-packages.nix
+      ./interactive-shell.nix
     ];
 
   
@@ -192,77 +194,6 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "21.11"; # Did you read the comment?
 
-  environment.interactiveShellInit = ''
-    alias horizon='~/horizon'
-    alias echo-nix-shell='echo $IN_NIX_SHELL'
-    alias eulerdev="~/MonadFix/euler-tools/euler-bin/euler dev"
-    alias docker-remove-all='docker rm -v $(docker ps -aq -f status=exited)'
-    alias docker-stop-all='docker stop $(docker ps -q)'
-    alias docker-delete-none-images='docker rmi $(docker images -f "dangling=true" -q)'
-    HISTSIZE=100000
-    HISTFILESIZE=200000
-  '';
 
-
-  nixpkgs.config.allowUnfree = true;
-
-  nixpkgs.overlays = [
-    (self: super:
-    {
-   zoomUsFixed = pkgs.zoom-us.overrideAttrs (old: {
-      postFixup = old.postFixup + ''
-        wrapProgram $out/bin/zoom-us --unset XDG_SESSION_TYPE
-      '';});
-   zoom = pkgs.zoom-us.overrideAttrs (old: {
-      postFixup = old.postFixup + ''
-        wrapProgram $out/bin/zoom --unset XDG_SESSION_TYPE
-      '';});
-      }
-      )
-  ];
-  # install pkgs.zoom, not pkgs.zoom-us
-  # and add "enableWaylandShare=true" to ~/.config/zoomus.conf
-  
-
-  environment.systemPackages =
-      [ pkgs.firefox
-        pkgs.thunderbird
-        pkgs.emacs
-	pkgs.vscode
-	pkgs.libreoffice
-	pkgs.keepassxc
-	pkgs.evince
-	pkgs.stack
-	pkgs.ghc
-	pkgs.ghcid
-	pkgs.cabal-install
-	pkgs.hpack
-	pkgs.docker
-	pkgs.mc
-	pkgs.ranger
-	pkgs.joplin-desktop
-        pkgs.wget
-	pkgs.git	
-	pkgs.pciutils
-	pkgs.unrar
-	pkgs.bchunk
-        pkgs.gnome.dconf-editor
-	pkgs.efibootmgr
-	pkgs.zoom
-	pkgs.qbittorrent
-	pkgs.vlc
-	pkgs.vmware-horizon-client
-	pkgs.virtualbox
-	pkgs.dosbox
-	pkgs.wine
-	pkgs.wine64
-	pkgs.ccd2iso
-	pkgs.openttd
-	# pkgs.hamster
-	# pkgs.gtimelog
-	# pkgs.toggldesktop
-	# pkgs.gtimelog
-	# pkgs.timewarrior	
-      ];
 }
 
