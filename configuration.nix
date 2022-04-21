@@ -33,12 +33,12 @@
   # boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
   
   
-  networking.hostName = "myhostname"; # Define your hostname.
+  networking.hostName = "romashka"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;
 
   # Set your time zone.
-  time.timeZone = "Europe/Amsterdam";
+  time.timeZone = "Europe/Moscow";
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
@@ -57,6 +57,13 @@
   #   keyMap = "us";
   # };
 
+  # i18n.defaultLocale = "ru_RU.UTF-8";
+  # console = {
+  #   font = "cyr-sun16";
+  #   keyMap = "ruwin_cplk-UTF-8";
+  # };
+
+
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
 
@@ -65,6 +72,7 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
   
+
 
   # Configure keymap in X11
   # services.xserver.layout = "us";
@@ -75,9 +83,20 @@
     # xkbVariant = "workman,";
     # xkbOptions = "grp:win_space_toggle";
     # xkbOptions = "caps:swapescape,grp:rctrl_rshift_toggle";
-    xkbOptions = "grp:lalt_lshift_toggle";
+    # xkbOptions = "grp:alt_lshift_toggle";
+    # xkbOptions = "ctrl:swapcaps"; # use CapsLock as Ctrl
   };
+  # via dconf-editor set org.gnome.desktop.wm.keybindings = ['<Super>space', '<Alt>Shift_L', 'XF86Keyboard']
 
+  # Then run these commands:
+  # gsettings reset org.gnome.desktop.input-sources xkb-options
+  # gsettings reset org.gnome.desktop.input-sources sources
+  # Now reboot
+
+  # Change CapsLock to Ctrl
+    # run dconf-editor
+    # select org.gnome.desktop.input-sources
+    # Change xkb-options to ['ctrl:nocaps'] (or add it to any existing options)
 
 
   # services.xserver.desktopManager.gnome = {
@@ -112,12 +131,25 @@
   #   isNormalUser = true;
   #   extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
   # };
-  
-  users.users.username = {
+
+  # for VirtualBOX
+  # Run VirtualBOX: /run/wrappers/wrappers.gtG1GDCvm0/VirtualBoxVM --startvm winxp
+  virtualisation.virtualbox.host.enable = true;
+  virtualisation.virtualbox.guest.enable = true;
+  # nixpkgs.config.virtualbox.enableExtensionPack = true;
+  virtualisation.virtualbox.host.enableExtensionPack = true;
+
+  virtualisation.docker.enable = true;
+
+  users.users.kolay = {
     isNormalUser = true;
-    home = "/home/username";
-    extraGroups = [ "wheel" "networkmanager"]; # "wheel" Enable ‘sudo’ for the user.
+    home = "/home/kolay";
+    extraGroups = [ "wheel" "networkmanager" "vboxusers" "docker"]; # "wheel" Enable ‘sudo’ for the user.
+    # extraGroups = [ "wheel" "networkmanager" "docker" ]; # "wheel" Enable ‘sudo’ for the user.
   };
+
+  nix.trustedUsers = [ "root" "kolay" ];
+
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -159,7 +191,19 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "21.11"; # Did you read the comment?
-  
+
+  environment.interactiveShellInit = ''
+    alias horizon='~/horizon'
+    alias echo-nix-shell='echo $IN_NIX_SHELL'
+    alias eulerdev="~/MonadFix/euler-tools/euler-bin/euler dev"
+    alias docker-remove-all='docker rm -v $(docker ps -aq -f status=exited)'
+    alias docker-stop-all='docker stop $(docker ps -q)'
+    alias docker-delete-none-images='docker rmi $(docker images -f "dangling=true" -q)'
+    HISTSIZE=100000
+    HISTFILESIZE=200000
+  '';
+
+
   nixpkgs.config.allowUnfree = true;
 
   nixpkgs.overlays = [
@@ -185,31 +229,40 @@
         pkgs.thunderbird
         pkgs.emacs
 	pkgs.vscode
-	pkgs.dosbox
-	# pkgs.hamster
-	# pkgs.gtimelog
-	# pkgs.toggldesktop
-	# pkgs.gtimelog
-	# pkgs.timewarrior
 	pkgs.libreoffice
-	pkgs.unrar
-	pkgs.zoom
-	pkgs.vmware-horizon-client
 	pkgs.keepassxc
+	pkgs.evince
 	pkgs.stack
 	pkgs.ghc
 	pkgs.ghcid
 	pkgs.cabal-install
 	pkgs.hpack
-	pkgs.git
-	pkgs.wget
+	pkgs.docker
 	pkgs.mc
 	pkgs.ranger
 	pkgs.joplin-desktop
+        pkgs.wget
+	pkgs.git	
 	pkgs.pciutils
-	pkgs.evince
+	pkgs.unrar
+	pkgs.bchunk
+        pkgs.gnome.dconf-editor
 	pkgs.efibootmgr
-	
+	pkgs.zoom
+	pkgs.qbittorrent
+	pkgs.vlc
+	pkgs.vmware-horizon-client
+	pkgs.virtualbox
+	pkgs.dosbox
+	pkgs.wine
+	pkgs.wine64
+	pkgs.ccd2iso
+	pkgs.openttd
+	# pkgs.hamster
+	# pkgs.gtimelog
+	# pkgs.toggldesktop
+	# pkgs.gtimelog
+	# pkgs.timewarrior	
       ];
 }
 
