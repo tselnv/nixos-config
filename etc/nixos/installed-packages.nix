@@ -35,6 +35,9 @@
 	 cabal-install
 	 hpack
 	 docker
+	 # coq
+	 # opam
+	 # coqPackages.mathcomp-ssreflect
 	 mc
 	 ranger
 	 joplin-desktop
@@ -42,19 +45,23 @@
 	 git	
 	 pciutils
 	 unrar
-	 bchunk
+	 bchunk # bin cue to iso, example: bchunk -v JUTLAND.bin JUTLAND.cue Jutland
          gnome.dconf-editor
 	 efibootmgr
 	 zoom
 	 qbittorrent
 	 vlc
 	 vmware-horizon-client
+	 gimp
+	 arcan.ffmpeg
 	 virtualbox
 	 dosbox
 	 wine
 	 wine64
-	 ccd2iso
+	 ccd2iso # convert img to iso
+	 ecmtools # convert ecm to iso
 	 openttd
+	 
 	#  hamster
 	#  gtimelog
 	#  toggldesktop
