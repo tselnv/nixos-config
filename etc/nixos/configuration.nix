@@ -1,13 +1,8 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 
 {
   imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+    [ ./hardware-configuration.nix
       ./wifi-configuration.nix
       ./installed-packages.nix
       ./interactive-shell.nix
@@ -24,27 +19,12 @@
 
   boot.supportedFilesystems = [ "ntfs" ];
 
-  # Use the GRUB 2 boot loader.
-  # boot.loader.systemd-boot.enable = true;  
-  # boot.loader.grub.enable = true;
-  # boot.loader.grub.version = 2;
-  # boot.loader.grub.efiSupport = true;
-  # boot.loader.grub.efiInstallAsRemovable = true;
-  # boot.loader.efi.efiSysMountPoint = "/boot/efi";
-  # Define on which hard drive you want to install Grub.
-  # boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
-  
   
   networking.hostName = "romashka"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;
 
-  # Set your time zone.
   time.timeZone = "Europe/Moscow";
 
-  # The global useDHCP flag is deprecated, therefore explicitly set to false here.
-  # Per-interface useDHCP will be mandatory in the future, so this generated config
-  # replicates the default behaviour.
   networking.useDHCP = false;
   networking.interfaces.eno1.useDHCP = true;
 
@@ -53,12 +33,6 @@
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Select internationalisation properties.
-  # i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  # };
-
   # i18n.defaultLocale = "ru_RU.UTF-8";
   # console = {
   #   font = "cyr-sun16";
@@ -66,25 +40,59 @@
   # };
 
 
-  # Enable the X11 windowing system.
-  # services.xserver.enable = true;
-
-
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
-  services.xserver.windowManager.xmonad.enable = true;
+  services.xserver = {
+  
+    displayManager.gdm.enable = true;
+    desktopManager.gnome.enable = true;
+    windowManager.xmonad = {
+       enable = true;
+       extraPackages = haskellPackages: [
+	 haskellPackages.dbus
+	 haskellPackages.List
+	 haskellPackages.monad-logger
+	 haskellPackages.xmonad
+	 haskellPackages.xmonad-contrib
+	 haskellPackages.xmonad-extras
+       ];
+    };
+    windowManager.i3 = {
+      enable = true;
+      extraPackages = with pkgs; [
+	  dmenu #application launcher most people use  
+	  i3status # gives you the default i3 status bar
+	  i3lock #default i3 screen locker
+	  i3blocks #if you are planning on using i3blocks over i3status
+      ];
+    };
+  };
+
+
+
+  services.redshift = {
+    enable = true;
+    brightness = {
+      # Note the string values below.
+      day = "1";
+      night = "0.8";
+    };
+    temperature = {
+      day = 5500;
+      night = 300;
+    };
+  };
+
+  location.latitude = 55.75;
+  location.longitude = 37.62;
   
 
 
   # Configure keymap in X11
-  # services.xserver.layout = "us";
-  # services.xserver.xkbOptions = "eurosign:e";
   services.xserver = {
     enable = true;
     layout = "us,ru";
     # xkbVariant = "workman,";
-    # xkbOptions = "grp:win_space_toggle";
+    xkbOptions = "ctrl:nocaps";
     # xkbOptions = "caps:swapescape,grp:rctrl_rshift_toggle";
     # xkbOptions = "grp:alt_lshift_toggle";
     # xkbOptions = "ctrl:swapcaps"; # use CapsLock as Ctrl
@@ -129,12 +137,6 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  # users.users.jane = {
-  #   isNormalUser = true;
-  #   extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-  # };
-
   # for VirtualBOX
   # Run VirtualBOX: /run/wrappers/wrappers.gtG1GDCvm0/VirtualBoxVM --startvm winxp
   virtualisation.virtualbox.host.enable = true;
@@ -148,7 +150,6 @@
     isNormalUser = true;
     home = "/home/kolay";
     extraGroups = [ "wheel" "networkmanager" "vboxusers" "docker"]; # "wheel" Enable ‘sudo’ for the user.
-    # extraGroups = [ "wheel" "networkmanager" "docker" ]; # "wheel" Enable ‘sudo’ for the user.
   };
 
   nix.trustedUsers = [ "root" "kolay" ];
