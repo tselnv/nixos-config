@@ -180,7 +180,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 
-bindsym Mod1+space exec ./bin/layout_switch.sh # Mod1 = alt
+# bindsym Mod1+space exec ./bin/layout_switch.sh # Mod1 = alt
 
 
 # Start i3bar to display a workspace bar (plus the system information i3status
@@ -188,3 +188,9 @@ bindsym Mod1+space exec ./bin/layout_switch.sh # Mod1 = alt
 bar {
         status_command i3status
 }
+
+exec feh --bg-scale ~/Firefox_wallpaper.png
+
+exec redshift -l 55:37 -t 6500:3900 -g 0.9
+
+exec setxkbmap -option grp:alt_shift_toggle "us,ru" # -option grp_led:caps

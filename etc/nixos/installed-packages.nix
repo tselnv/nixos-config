@@ -22,7 +22,11 @@
 
 
   environment.systemPackages = with pkgs; [
+         pasystray # audio control applet
+	 pavucontrol # volume contol
+	 networkmanager_dmenu # wi-fi applet
          firefox
+	 chromium
          thunderbird
          emacs
 	 vscode
@@ -52,6 +56,7 @@
 	 qbittorrent
 	 vlc
 	 vmware-horizon-client
+	 numlockx
 	 gimp
 	 arcan.ffmpeg
 	 virtualbox
@@ -61,6 +66,9 @@
 	 ccd2iso # convert img to iso
 	 ecmtools # convert ecm to iso
 	 openttd
+	 redshift
+	 racket
+	 feh # add into .i3/config: exec feh --bg-scale /home/dober/W/something.jpg
 	 
 	#  hamster
 	#  gtimelog

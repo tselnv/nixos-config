@@ -39,11 +39,17 @@
   #   keyMap = "ruwin_cplk-UTF-8";
   # };
 
-
+  # services.xserver.displayManager.sddm.autoNumlock = true;
+  # systemd.services.numlock = {
+  #   enable = true;
+  # };
+  
   # Enable the GNOME Desktop Environment.
   services.xserver = {
+    # xsession.numlock.enable = true;
   
     displayManager.gdm.enable = true;
+    # displayManager.sddm.autoNumlock = true;
     desktopManager.gnome.enable = true;
     windowManager.xmonad = {
        enable = true;
@@ -63,8 +69,19 @@
 	  i3status # gives you the default i3 status bar
 	  i3lock #default i3 screen locker
 	  i3blocks #if you are planning on using i3blocks over i3status
+	  feh # add into .i3/config: exec feh --bg-scale /home/dober/W/something.jpg
+	  numlockx
       ];
     };
+  };
+
+  systemd.user.services.enablenumlock = {
+    description = "Enable NumLock on login";
+    serviceConfig.PassEnvironment = "DISPLAY";
+    script = ''
+      numlockx 
+    '';
+    wantedBy = [ "multi-user.target" ]; # starts after login
   };
 
 

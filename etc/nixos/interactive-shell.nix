@@ -8,6 +8,7 @@
     alias docker-delete-none-images='docker rmi $(docker images -f "dangling=true" -q)'
     HISTSIZE=100000
     HISTFILESIZE=200000
+    numlockx on
   '';
   
 }
