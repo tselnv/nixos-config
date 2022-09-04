@@ -39,6 +39,10 @@
 	 cabal-install
 	 hpack
 	 docker
+	 postgresql
+	 redis
+	 dbeaver
+	 pgsync # pg_dump and other utilities
 	 # coq
 	 # opam
 	 # coqPackages.mathcomp-ssreflect
@@ -49,6 +53,7 @@
 	 git	
 	 pciutils
 	 unrar
+	 p7zip
 	 bchunk # bin cue to iso, example: bchunk -v JUTLAND.bin JUTLAND.cue Jutland
          gnome.dconf-editor
 	 efibootmgr
@@ -68,6 +73,8 @@
 	 openttd
 	 redshift
 	 racket
+	 electrum
+	 mycrypto
 	 feh # add into .i3/config: exec feh --bg-scale /home/dober/W/something.jpg
 	 
 	#  hamster

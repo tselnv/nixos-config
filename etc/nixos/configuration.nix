@@ -6,6 +6,7 @@
       ./wifi-configuration.nix
       ./installed-packages.nix
       ./interactive-shell.nix
+      ./database.nix
     ];
 
   

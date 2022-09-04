@@ -7,6 +7,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector
+   [default default default italic underline success warning error])
+ '(ansi-color-names-vector
+   ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1" "#e1e1e0"])
  '(custom-enabled-themes '(misterioso))
  '(package-selected-packages
    '(racket-mode proof-general attrap use-package dante lsp-haskell lsp-mode lsp-ui)))
@@ -16,6 +20,12 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+
+;; for navigation
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
+(ido-mode 1)
 
 
 (set-frame-font "Monospace 12")
@@ -34,8 +44,6 @@
 (toggle-frame-maximized)
 
 ;; (desktop-save-mode 1)			
-
-
 
 
 
@@ -71,3 +79,6 @@
 ;; (global-set-key [f4] "⇒")
 
 
+;; it doesn't work
+;; (add-hook 'racket-mode-hook coq-symbols-list)
+;; (add-hook 'racket-mode-hook #'racket-unicode-input-method-enable)
