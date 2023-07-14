@@ -6,7 +6,7 @@
       ./wifi-configuration.nix
       ./installed-packages.nix
       ./interactive-shell.nix
-      ./database.nix
+      # ./database.nix
     ];
 
   
@@ -20,6 +20,10 @@
 
   boot.supportedFilesystems = [ "ntfs" ];
 
+  # fileSystems."/media/mydrive" = {
+  #   device = "/dev/sda5";
+  #   fsType = "ext4";
+  # };
   
   networking.hostName = "romashka"; # Define your hostname.
   networking.networkmanager.enable = true;
@@ -44,6 +48,9 @@
   # systemd.services.numlock = {
   #   enable = true;
   # };
+
+  
+  security.polkit.enable = true; # for ask for you a password when mounting and needs special permissions and gives a nice GUI to type it in
   
   # Enable the GNOME Desktop Environment.
   services.xserver = {
@@ -52,17 +59,22 @@
     displayManager.gdm.enable = true;
     # displayManager.sddm.autoNumlock = true;
     desktopManager.gnome.enable = true;
-    windowManager.xmonad = {
-       enable = true;
-       extraPackages = haskellPackages: [
-	 haskellPackages.dbus
-	 haskellPackages.List
-	 haskellPackages.monad-logger
-	 haskellPackages.xmonad
-	 haskellPackages.xmonad-contrib
-	 haskellPackages.xmonad-extras
-       ];
-    };
+
+    # displayManager.sddm.enable = true;
+    # desktopManager.plasma5.enable = true;
+
+    # windowmanager.xmonad = {
+    #    enable = true;
+    #    extraPackages = haskellPackages: [
+    # 	 haskellPackages.dbus
+    # 	 haskellPackages.List
+    # 	 haskellPackages.monad-logger
+    # 	 haskellPackages.xmonad
+    # 	 haskellPackages.xmonad-contrib
+    # 	 haskellPackages.xmonad-extras
+    #    ];
+    # };
+    
     windowManager.i3 = {
       enable = true;
       extraPackages = with pkgs; [
@@ -75,6 +87,8 @@
       ];
     };
   };
+
+  services.locate.enable = true;
 
   systemd.user.services.enablenumlock = {
     description = "Enable NumLock on login";
@@ -170,7 +184,7 @@
     extraGroups = [ "wheel" "networkmanager" "vboxusers" "docker"]; # "wheel" Enable ‘sudo’ for the user.
   };
 
-  nix.trustedUsers = [ "root" "kolay" ];
+  nix.settings.trusted-users = [ "root" "kolay" ];
 
 
   # List packages installed in system profile. To search, run:
@@ -195,7 +209,7 @@
   # services.openssh.enable = true;
   services.openssh = {
     enable = true;
-    passwordAuthentication = true;
+    settings.PasswordAuthentication = true;
   #  permitRootLogin = "yes";
   #  challengeResponseAuthentication = false;
   };

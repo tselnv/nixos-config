@@ -26,18 +26,19 @@
 	 pavucontrol # volume contol
 	 networkmanager_dmenu # wi-fi applet
          firefox
-	 chromium
+	 # chromium
          thunderbird
          emacs
 	 vscode
 	 libreoffice
 	 keepassxc
-	 evince
-	 stack
-	 ghc
-	 ghcid
-	 cabal-install
-	 hpack
+	 remmina
+	 evince # pdf reader
+	 # stack
+	 # ghc
+	 # ghcid
+	 # cabal-install
+	 # hpack
 	 docker
 	 postgresql
 	 redis
@@ -48,10 +49,10 @@
 	 # coqPackages.mathcomp-ssreflect
 	 mc
 	 ranger
-	 joplin-desktop
+	 # joplin-desktop
          wget
 	 git	
-	 pciutils
+	 # pciutils
 	 unrar
 	 p7zip
 	 bchunk # bin cue to iso, example: bchunk -v JUTLAND.bin JUTLAND.cue Jutland
@@ -63,8 +64,8 @@
 	 vmware-horizon-client
 	 numlockx
 	 gimp
-	 arcan.ffmpeg
-	 virtualbox
+	 # arcan.ffmpeg
+	 # virtualbox
 	 dosbox
 	 wine
 	 wine64
@@ -72,9 +73,10 @@
 	 ecmtools # convert ecm to iso
 	 openttd
 	 redshift
-	 racket
+	 gdu # disk usage analizer
+	 # racket
 	 electrum
-	 mycrypto
+	 # mycrypto
 	 feh # add into .i3/config: exec feh --bg-scale /home/dober/W/something.jpg
 	 
 	#  hamster
