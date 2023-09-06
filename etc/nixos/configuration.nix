@@ -20,10 +20,6 @@
 
   boot.supportedFilesystems = [ "ntfs" ];
 
-  # fileSystems."/media/mydrive" = {
-  #   device = "/dev/sda5";
-  #   fsType = "ext4";
-  # };
   
   networking.hostName = "romashka"; # Define your hostname.
   networking.networkmanager.enable = true;
@@ -52,29 +48,23 @@
   
   security.polkit.enable = true; # for ask for you a password when mounting and needs special permissions and gives a nice GUI to type it in
   
-  # Enable the GNOME Desktop Environment.
-  services.xserver = {
-    # xsession.numlock.enable = true;
   
-    displayManager.gdm.enable = true;
-    # displayManager.sddm.autoNumlock = true;
-    desktopManager.gnome.enable = true;
+  services.xserver = {
 
-    # displayManager.sddm.enable = true;
-    # desktopManager.plasma5.enable = true;
+    enable = true;
+  
+    # Enable the GNOME Desktop Environment.
+    # # xsession.numlock.enable = true;
+    #   displayManager.gdm.enable = true;
+    # # displayManager.sddm.autoNumlock = true;
+    # desktopManager.gnome.enable = true;
 
-    # windowmanager.xmonad = {
-    #    enable = true;
-    #    extraPackages = haskellPackages: [
-    # 	 haskellPackages.dbus
-    # 	 haskellPackages.List
-    # 	 haskellPackages.monad-logger
-    # 	 haskellPackages.xmonad
-    # 	 haskellPackages.xmonad-contrib
-    # 	 haskellPackages.xmonad-extras
-    #    ];
-    # };
-    
+
+    # Enable the KDE Desktop Environment.
+    displayManager.sddm.enable = true;
+    desktopManager.plasma5.enable = true;
+
+   
     windowManager.i3 = {
       enable = true;
       extraPackages = with pkgs; [
@@ -87,6 +77,8 @@
       ];
     };
   };
+
+
 
   services.locate.enable = true;
 
@@ -121,7 +113,7 @@
 
   # Configure keymap in X11
   services.xserver = {
-    enable = true;
+    
     layout = "us,ru";
     # xkbVariant = "workman,";
     xkbOptions = "ctrl:nocaps";
@@ -163,8 +155,12 @@
   services.printing.enable = true;
 
   # Enable sound.
-  # sound.enable = true;
-  # hardware.pulseaudio.enable = true;
+  sound.enable = true;
+  hardware.pulseaudio.enable = true;
+  hardware.pulseaudio.support32Bit = true;    ## If compatibility with 32-bit applications is desired.
+  hardware.pulseaudio.extraConfig = "load-module module-combine-sink";
+  nixpkgs.config.pulseaudio = true;
+
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -181,7 +177,7 @@
   users.users.kolay = {
     isNormalUser = true;
     home = "/home/kolay";
-    extraGroups = [ "wheel" "networkmanager" "vboxusers" "docker"]; # "wheel" Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "networkmanager" "vboxusers" "docker" "audio"]; # "wheel" Enable ‘sudo’ for the user.
   };
 
   nix.settings.trusted-users = [ "root" "kolay" ];
@@ -229,5 +225,39 @@
   system.stateVersion = "21.11"; # Did you read the comment?
 
 
+  # ## NVIDIA BEGIN
+  #  # Make sure opengl is enabled
+  # hardware.opengl = {
+  #   enable = true;
+  #   driSupport = true;
+  #   driSupport32Bit = true;
+  # };
+
+  # # # NVIDIA drivers are unfree.
+  # # nixpkgs.config.allowUnfreePredicate = pkg:
+  # #   builtins.elem (lib.getName pkg) [
+  # #     "nvidia-x11"
+  # #     "nvidia-settings"
+  # #   ];
+
+  # # Tell Xorg to use the nvidia driver
+  # services.xserver.videoDrivers = ["nvidia"];
+
+  # hardware.nvidia = {
+
+  #   # Modesetting is needed for most wayland compositors
+  #   modesetting.enable = true;
+
+  #   # Use the open source version of the kernel module
+  #   # Only available on driver 515.43.04+
+  #   open = true;
+
+  #   # Enable the nvidia settings menu
+  #   nvidiaSettings = true;
+
+  #   # Optionally, you may need to select the appropriate driver version for your specific GPU.
+  #   package = config.boot.kernelPackages.nvidiaPackages.stable;
+  # };
+  # ## END OF NVIDIA
 }
 

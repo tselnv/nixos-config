@@ -20,43 +20,64 @@
   # install pkgs.zoom, not pkgs.zoom-us
   # and add "enableWaylandShare=true" to ~/.config/zoomus.conf
 
+  # environment.plasma5.excludePackages = with pkgs.libsForQt5; [
+  #   elisa
+  #   gwenview
+  #   okular
+  #   oxygen
+  #   khelpcenter
+  #   konsole
+  #   plasma-browser-integration
+  #   print-manager
+  # ];
+
 
   environment.systemPackages = with pkgs; [
+         ## NVIDIA
+         # linuxKernel.packages.linux_zen.nvidia_x11_production
+    
+         ## GNOME
+	 # remmina
+	 # evince # pdf reader
+	 # gnome.dconf-editor
+
+	 ## KDE
+	 libsForQt5.elisa
+	 libsForQt5.gwenview
+	 libsForQt5.okular
+	 libsForQt5.oxygen
+	 libsForQt5.khelpcenter
+	 libsForQt5.konsole
+	 libsForQt5.plasma-browser-integration
+	 libsForQt5.print-manager
+	 libsForQt5.konsole
+	 libsForQt5.krdc
+
          pasystray # audio control applet
 	 pavucontrol # volume contol
 	 networkmanager_dmenu # wi-fi applet
          firefox
-	 # chromium
+	 
          thunderbird
          emacs
 	 vscode
 	 libreoffice
-	 keepassxc
-	 remmina
-	 evince # pdf reader
-	 # stack
-	 # ghc
-	 # ghcid
-	 # cabal-install
-	 # hpack
+	 keepassxc	 
+	 
 	 docker
 	 postgresql
 	 redis
 	 dbeaver
 	 pgsync # pg_dump and other utilities
-	 # coq
-	 # opam
-	 # coqPackages.mathcomp-ssreflect
+	 
 	 mc
-	 ranger
-	 # joplin-desktop
+	 ranger	 
          wget
 	 git	
-	 # pciutils
+	 
 	 unrar
 	 p7zip
 	 bchunk # bin cue to iso, example: bchunk -v JUTLAND.bin JUTLAND.cue Jutland
-         gnome.dconf-editor
 	 efibootmgr
 	 zoom
 	 qbittorrent
@@ -64,25 +85,47 @@
 	 vmware-horizon-client
 	 numlockx
 	 gimp
-	 # arcan.ffmpeg
-	 # virtualbox
+	 
 	 dosbox
 	 wine
 	 wine64
+	 winetricks
 	 ccd2iso # convert img to iso
 	 ecmtools # convert ecm to iso
 	 openttd
 	 redshift
+	 pciutils # A collection of programs for inspecting and manipulating configuration of PCI devices
 	 gdu # disk usage analizer
-	 # racket
-	 electrum
-	 # mycrypto
-	 feh # add into .i3/config: exec feh --bg-scale /home/dober/W/something.jpg
 	 
-	#  hamster
-	#  gtimelog
-	#  toggldesktop
-	#  gtimelog
-	#  timewarrior	
+	 electrum
+	 feh # add into .i3/config: exec feh --bg-scale /home/dober/W/something.jpg
+
+
+	 ## OTHER
+	 # chromium
+	 
+	 # stack
+	 # ghc
+	 # ghcid
+	 # cabal-install
+	 # hpack
+
+	 # racket
+	 
+	 # coq
+	 # opam
+	 # coqPackages.mathcomp-ssreflect
+
+	 # joplin-desktop
+	 # arcan.ffmpeg
+	 # virtualbox
+
+	 # mycrypto
+
+	 #  hamster
+	 #  gtimelog
+	 #  toggldesktop
+	 #  gtimelog
+	 #  timewarrior	
     ];
 }
