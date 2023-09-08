@@ -3,10 +3,15 @@
 # to /etc/nixos/configuration.nix instead.
 { config, lib, pkgs, modulesPath, ... }:
 
+
 {
   imports =
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
+
+  # boot.supportedFilesystems = [ "ntfs" ]; # already defined in confiruration.nix
+
+  services.fstrim.enable = true; # for SSD disk drive
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
@@ -27,6 +32,15 @@
     { device = "/dev/disk/by-uuid/1e0837b9-6a16-4a6d-aa6a-8efb05941d55";
       fsType = "ext4";
     };
+
+
+   fileSystems."/media/mydata" =
+    { device = "/dev/disk/by-uuid/5F89883D62920513";
+      fsType = "ntfs-3g";
+      options = [ "rw" "uid=1000"]; # run: id -u kolay
+    };
+
+    
 
   swapDevices =
     [ { device = "/dev/disk/by-uuid/4939ea06-66f7-4371-b364-6e2bc1d2ccce"; }

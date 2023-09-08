@@ -48,7 +48,7 @@
   
   security.polkit.enable = true; # for ask for you a password when mounting and needs special permissions and gives a nice GUI to type it in
   
-  
+
   services.xserver = {
 
     enable = true;
@@ -90,7 +90,6 @@
     '';
     wantedBy = [ "multi-user.target" ]; # starts after login
   };
-
 
 
   services.redshift = {

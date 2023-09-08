@@ -62,7 +62,8 @@
          emacs
 	 vscode
 	 libreoffice
-	 keepassxc	 
+	 keepassxc
+	 openvpn
 	 
 	 docker
 	 postgresql
@@ -83,6 +84,7 @@
 	 qbittorrent
 	 vlc
 	 vmware-horizon-client
+	 oath-toolkit ## Google authentification
 	 numlockx
 	 gimp
 	 
