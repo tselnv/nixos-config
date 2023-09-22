@@ -64,6 +64,8 @@
 	 libreoffice
 	 keepassxc
 	 openvpn
+	 filelight
+	 tree # show files in directory as tree
 	 
 	 docker
 	 postgresql

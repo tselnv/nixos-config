@@ -45,7 +45,8 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+# bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec konsole #kgx
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -196,6 +197,7 @@ exec redshift -l 55:37 -t 6500:3900 -g 0.9
 exec setxkbmap -option grp:alt_shift_toggle "us,ru" # -option grp_led:caps
 
 exec --no-startup-id /usr/lib/x86_64-linux-gnu/libexec/polkit-kde-authentication-agent-1 # for asking sudo in gui (like nautilus)
+exec --no-startup-id /nix/store/vhq11h949l5zycaw07acphv53ifq4p2c-source/pkgs/tools/security/polkit-gnome/polkit-gnome-authentication-agent-1.desktop
 
 exec pasystray # audio control
 

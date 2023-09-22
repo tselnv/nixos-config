@@ -8,6 +8,7 @@
     alias docker-delete-none-images='docker rmi $(docker images -f "dangling=true" -q)'
     HISTSIZE=100000
     HISTFILESIZE=200000
+    GOPATH=$HOME/gocode
     numlockx on
     alias vpn='sudo openvpn --config /home/kolay/my/lapochka.ovpn'
     alias kdelogout='qdbus org.kde.ksmserver /KSMServer logout 0 0 2'
