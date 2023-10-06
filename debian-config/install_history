@@ -1,0 +1,36 @@
+sudo apt-get install i3
+sudo apt-get install oathtool
+sudo apt-get install vmware-view
+snap install zoom-client
+sudo apt install curl
+sh <(curl -L https://nixos.org/nix/install) --daemon
+sudo apt-get install feh
+sudo apt-get install emacs
+sudo apt-get install mc
+sudo apt-get install net-tools
+sudo snap install --classic code # vs code
+sudo apt-get install sendip
+
+
+# install Docker
+sudo apt update
+sudo apt install apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt update
+apt-cache policy docker-ce
+sudo apt install docker-ce
+sudo systemctl status docker
+# add ${USER} to docker group
+sudo usermod -aG docker ${USER}
+su - ${USER}
+groups
+
+# install Wireshark
+sudo apt-get install wireshark
+sudo usermod -aG wireshark $USER
+
+
+# Disable ctrl+` for dunst:
+mkdir -p ~/.config/dunst && cp /etc/xdg/dunst/dunstrc ~/.config/dunst/dunstrc
+comment line in config file: # history = ctrl+grave
